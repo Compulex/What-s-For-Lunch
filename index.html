@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>What's for Lunch?</title>
+		<script src="index.js"></script>
+		<script>
+			var stop = 100;
+			var divNum = 0;
+			
+			var img1 = "";
+			var img2 = "";
+			
+			//every time a select is created
+			function slide(div, changed){
+				div.style.display = 'block';
+				
+				if(changed){
+					stop-=100;
+				}
+				if(parseInt(div.style.left) < stop){
+					div.style.left = parseInt(div.style.left) + 7 + 'px';
+					//call this again in some time
+					setTimeout(function(){slide(div);}, 30); //wrapper function
+				}
+				else{
+					stop+=100;
+				}
+				
+			}//slide
+			
+			//go out of screen and removed after
+			function bye(div){
+				//div.style.width = 20em -> 320px
+				if(parseInt(div.style.left) > -(stop + 30)){
+					div.style.left = parseInt(div.style.left) - 7 + 'px';
+					//call this again in some time
+					setTimeout(function(){bye(div);}, 30); //wrapper function
+				}
+				else{
+					div.style.display = 'none';
+					div.removeChild(div.lastChild);
+					//console.log(div);
+				}
+				
+			}//bye
+			
+			/*function changeImg(dt, name, order){
+				
+				if(localStorage){
+					if(dt == 'Dine In'){
+						img = img1;
+						localStorage.setItem('img', img);
+					}
+					else if(dt == 'Take Out'){
+						img = img2;
+						localStorage.setItem('img', img);
+					}
+					
+					//set background image
+					if(localStorage.getItem('img')){
+						document.body.style.backgroundImage = localStorage.getItem('img');
+						
+					}
+				}
+				//using cookies to display person's name and order
+				if(GetCookie('user_id') == null){
+					SetCookie('user_id', name);
+				}
+				else{
+					var txt = document.createTextNode(GetCookie('user_id') + "'s order:" + order);
+					txt.style.fontSize =  '20';
+					txt.style.color = 'purple';
+					document.body.appendChild(txt);
+					SetCookie('ord', order);
+				}
+			}*/
+		</script>
+	</head>
+	<body onload="firstSelect();">
+		<h1>What's for Lunch?</h1>
+		<div id="meals" style="border:2px solid green;border-radius:20px 50px;height:2em;width:20em;position:relative;left:0px">
+			What will you have?
+		</div>
+		
+		<div id="sides" style="border:2px solid green;border-radius:20px 50px;height:2em;width:20em;position:relative;left:0px;display:none">
+			Any sides with that?
+		</div>
+		
+		<div id="sauces" style="border:2px solid green;border-radius:20px 50px;height:2em;width:20em;position:relative;left:0px;display:none">
+			What kind of sauce?
+		</div>
+		
+		<div id="flavors" style="border:2px solid green;border-radius:20px 50px;height:2em;width:20em;position:relative;left:0px;display:none">
+			What flavor?
+		</div>
+		
+		<div id="drinks" style="border:2px solid green;border-radius:20px 50px;height:2em;width:20em;position:relative;left:0px;display:none">
+			Would you like a drink with that?
+		</div>
+	</body>
+</html>
